@@ -1,6 +1,7 @@
 # Creating S3 bucket
 
 import boto3
+import time
 
 s3_client = boto3.client('s3')
 
@@ -16,7 +17,7 @@ def create_S3_bucket(bucket_name,region=None):
     except Exception as ee:
         print("Error occured: ",ee)
 
-bucket_name='my-boto3-demo-bucket-anuj-2025'
+bucket_name=f"my-boto3-demo-bucket-anuj-2025-{int(time.strftime("%H%M%S"))}"
 region='ap-south-1'
 create_S3_bucket(bucket_name,region)
 
