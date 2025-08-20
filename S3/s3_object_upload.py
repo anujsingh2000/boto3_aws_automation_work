@@ -1,0 +1,22 @@
+import boto3
+
+#Create S3 client
+s3_client=boto3.client('s3')
+
+#list of bucket
+buckets=s3_client.list_buckets()['Buckets']
+
+if not buckets:
+    print("No available bucket in aws account")
+else:
+    #Check for first available bucket in aws account
+    bucket_name=buckets[0]['Name']
+    print(f"Using {bucket_name} for file uploading")
+    file_name=r'C:\Users\Anuj Rathore\Desktop\Me\my_app.log' #Replace filename or path with actual file
+    object_name = "uploaded_test.txt"
+
+    try:
+        s3_client.upload_file(file_name,bucket_name, object_name)
+        print(f"{file_name} uploaded to {bucket_name} as {object_name}")
+    except Exception as ee:
+        print("Getting error while uplaoding file ", ee)
